@@ -162,16 +162,15 @@ export default function Dashbord() {
           </button>
         </div>
       </div>
-      <div className="States p-4 flex-1 ">
+      <div className="States p-10 flex-1 ">
         <h3 className="text-2xl mb-4">Hi {Username}</h3>
-        <div className="ListModules grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+        <div className="ListModules flex justify-center gap-8">
           {Usermodules &&
             Usermodules.map((e) => {
               return (
                 <div
                   key={e.modulename}
-                  className="Modules p-5 rounded-lg shadow-md bg-sky-300 "
-                  style={{ width: "220px" }}
+                  className="Modules p-5 rounded-lg shadow-md bg-sky-300 basis-1/3 flex c"
                 >
                   <h3 className="modulename text-lg font-semibold mb-2">
                     {e.modulename}
@@ -185,8 +184,8 @@ export default function Dashbord() {
                   <div className="EFM mb-2">EFM: {e.EFM}</div>
                   <div className="Meyenne mb-2">
                     Moyenne générale:
-                    {(Number(e.CC1) + Number(e.CC2) + Number(e.CC3)) * 0.25 +
-                      (Number(e.EFM) / 2) * 0.75}
+                    {((Number(e.CC1) + Number(e.CC2) + Number(e.CC3)) * 0.25 +
+                      (Number(e.EFM) / 2) * 0.75).toFixed(2)}
                   </div>
                   <button
                     onClick={() => setOpen(true)}
