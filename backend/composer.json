@@ -1,0 +1,6 @@
+{
+    "require": {
+        "mongodb/mongodb": "^1.17",
+        "cboden/ratchet": "^0.4.4"
+    }
+}
