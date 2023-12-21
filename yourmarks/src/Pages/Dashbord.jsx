@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removemodule, takemodules } from "../Redux/UserSlice";
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 export default function Dashbord() {
   const moduleOptions = [
@@ -22,7 +22,7 @@ export default function Dashbord() {
     "Projet de synthese",
     "Integration du milieu Professionnel",
   ];
-  const[open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const Username = useSelector((state) => state.user?.name);
   const Useremail = useSelector((state) => state.user.email);
   const Usermodules = useSelector((state) => state.user?.modules);
@@ -59,19 +59,20 @@ export default function Dashbord() {
       email: Useremail,
     });
     dispatch(removemodule(e));
-    setOpen(false)
+    setOpen(false);
   };
 
   return (
     <main className="flex bg-gray-100 min-h-screen">
-      <div className="SidBarre bg-gray-300 p-4" style={{ width: "400px" }}>
-        <div className="AddMarks bg-white p-4 rounded-lg shadow-md">
-          <div className="mb-4">
+      <div className="SidBarre bg-neutral-900 p-4 fixed min-h-screen" style={{ width: "400px" }}>
+        <div className="AddMarks bg-white p-4 rounded-r-full shadow-md">
+          <div className="mb-4 flex-col">
             <label htmlFor="" className="font-semibold">
               Nom du Module:
             </label>
             <select
-              className="NewMinp border rounded-md p-2 w-full"
+              className="NewMinp border rounded-md p-2"
+              style={{width:'250px'}}
               onChange={(e) => setnomModule(e.target.value)}
               required
             >
@@ -92,6 +93,7 @@ export default function Dashbord() {
             <input
               className="Coeffinp border rounded-md p-2 w-full hover:border-rose-600"
               type="number"
+              style={{width:'300px'}}
               value={CoeffModule}
               onChange={(e) => setcoeffModule(e.target.value)}
               required
@@ -143,7 +145,7 @@ export default function Dashbord() {
           </div>
           <div className="EFM mb-4">
             <label htmlFor="" className="font-semibold">
-              Note EFM: {' '}
+              Note EFM:{" "}
             </label>
             <input
               type="number"
@@ -162,37 +164,41 @@ export default function Dashbord() {
           </button>
         </div>
       </div>
-      <div className="States p-10 flex-1 ">
+      <div className="States p-10 flex-1 " style={{marginLeft:'400px'}}>
         <h3 className="text-2xl mb-4">Hi {Username}</h3>
-        <div className="ListModules flex justify-center gap-8">
+        <div className="ListModules grid grid-cols-1 sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  gap-8">
           {Usermodules &&
             Usermodules.map((e) => {
               return (
                 <div
                   key={e.modulename}
-                  className="Modules p-5 rounded-lg shadow-md bg-sky-300 basis-1/3 flex c"
+                  className="Modules p-2 rounded-lg shadow-md bg-emerald-100 flex-auto "
                 >
-                  <h3 className="modulename text-lg font-semibold mb-2">
+                  <h3 className="modulename text-lg font-semibold mb-4">
                     {e.modulename}
                   </h3>
-                  <div className="CoeffModule mb-2">
-                    CoeffModule: {e.CoeffModule}
+                  <div className="CoeffModule border-2 rounded-md border-sky-500 mb-5 flex justify-around">
+                    <span>CoeffModule:</span> {e.CoeffModule}
                   </div>
-                  <div className="CC1 mb-2">CC1: {e.CC1}</div>
-                  <div className="CC2 mb-2">CC2: {e.CC2}</div>
-                  <div className="CC3 mb-2">CC3: {e.CC3}</div>
-                  <div className="EFM mb-2">EFM: {e.EFM}</div>
-                  <div className="Meyenne mb-2">
-                    Moyenne générale:
-                    {((Number(e.CC1) + Number(e.CC2) + Number(e.CC3)) * 0.25 +
-                      (Number(e.EFM) / 2) * 0.75).toFixed(2)}
+                  <div className="CC1 mb-2  flex justify-around"><span>CC1 :</span> <span>{e.CC1}</span> </div>
+                  <div className="CC2 mb-2 flex justify-around"><span>CC2 :</span> <span>{e.CC2}</span> </div>
+                  <div className="CC3 mb-2 flex justify-around"><span>CC3 :</span> <span> {e.CC3}</span></div>
+                  <div className="EFM mb-5 flex justify-around"><span>EFM :</span> <span>{e.EFM}</span> </div>
+                  <div className="Meyenne mb-2 border-2 rounded-md border-sky-500 flex justify-around">
+                    <span>Moyenne générale:</span>
+                    {(
+                      (Number(e.CC1) + Number(e.CC2) + Number(e.CC3)) * 0.25 +
+                      (Number(e.EFM) / 2) * 0.75
+                    ).toFixed(2)}
                   </div>
-                  <button
-                    onClick={() => setOpen(true)}
-                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none"
-                  >
-                    Remove
-                  </button>
+                  <div className="flex flex-col items-center justify-end ">
+                    <button
+                      onClick={() => setOpen(true)}
+                      className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none"
+                    >
+                      Remove
+                    </button>
+                  </div>
                   <Transition.Root show={open} as={Fragment}>
                     <Dialog
                       as="div"
@@ -236,11 +242,12 @@ export default function Dashbord() {
                                       as="h3"
                                       className="text-base font-semibold leading-6 text-gray-900"
                                     >
-                                     Remove Module
+                                      Remove Module
                                     </Dialog.Title>
                                     <div className="mt-2">
                                       <p className="text-sm text-gray-500">
-                                        Are you sure you want to remove thos infos ?
+                                        Are you sure you want to remove thos
+                                        infos ?
                                       </p>
                                     </div>
                                   </div>
