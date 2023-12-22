@@ -25,7 +25,6 @@ if($_SERVER["REQUEST_METHOD"]==='POST'){
 
         ];
 
-        // Assuming 'modules' is initially an indexed array
         $modules = $User['modules'] ?? [];
         $modules[$data['nomModule']['modulename']] = $newModule;
 

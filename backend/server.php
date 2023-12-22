@@ -1,9 +1,13 @@
 <?php
+// permettre le partage de ressources entre différentes origines.
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
+//charger automatiquement les classes du pilote MongoDB pour php
 require 'vendor/autoload.php';
 
+//cree une nouvelle instance de client MongoDB
 $mongodata = new MongoDB\Client("mongodb://localhost:27017");
 $yourmarksdb = $mongodata->YoumarksDB;
 $UserCollection =$yourmarksdb->User;
