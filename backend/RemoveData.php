@@ -13,11 +13,11 @@ $UserCollection =$yourmarksdb->User;
 if($_SERVER["REQUEST_METHOD"]==='POST'){
     $data = json_decode(file_get_contents("php://input"),true);
 
-    $filter = ['$unset'=>['modules.'.$data['modulename']=>1]];
-    $filter1 = ["email" =>$data['email']];
-    $User = $UserCollection->findOne($filter1);
-    $removeModule = $UserCollection->updateOne($filter1,$filter);
+    $delete = ['$unset'=>['modules.'.$data['modulename']=>1]];
+    $filter = ["email" =>$data['email']];
+    $User = $UserCollection->findOne($filter);
+    $removeModule = $UserCollection->updateOne($filter,$delete);
     
     echo json_encode(['modules'=>$User['modules']]);
-    
+
 }
